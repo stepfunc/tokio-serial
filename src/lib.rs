@@ -21,3 +21,9 @@ pub type Result<T> = mio_serial::Result<T>;
 pub mod unix;
 #[cfg(unix)]
 pub use crate::unix::TTYPort;
+
+/// unimplemented serial port for Windows
+#[cfg(windows)]
+pub mod windows;
+#[cfg(windows)]
+pub use crate::windows::TTYPort;

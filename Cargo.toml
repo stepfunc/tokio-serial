@@ -18,15 +18,21 @@ travis-ci = { repository = "berkowski/tokio-serial", service = "github" }
 
 [features]
 default = ["libudev"]
-libudev = ["mio-serial/libudev"]
+libudev = ["serialport/libudev"]
 
 [dependencies]
-futures = "0.3.8"
-tokio = { version = "1.0.1", features = ["net"], default-features = false }
-mio-serial = { version = "3.3.0", default-features = false }
+futures = "0.3"
+tokio = { version = "1.7", features = ["net"], default-features = false }
+serialport = "3.3.0"
+
+[target.'cfg(unix)'.dependencies]
+nix = "^0.17"
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3.9", features = ["commapi", "fileapi", "handleapi", "winbase", "winnt"] }
 
 [dev-dependencies]
 futures = "0.3.8"
-tokio = { version = "1.0.1", features = ["macros", "rt-multi-thread"], default-features = false }
+tokio = { version = "1.7", features = ["io-std", "io-util", "macros", "rt-multi-thread"], default-features = false }
 tokio-util = { version = "0.6.0", features = ["codec"], default-features = false }
 bytes = "1.0"
